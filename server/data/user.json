@@ -1,0 +1,11 @@
+{
+  "firstname": "islem",
+  "lastname": "dahman",
+  "img": "images/islem.jpg",
+  "job": "frontend developer",
+  "description": "angularJs and NodeJs fullStack app...",
+  "stats": {
+    "age": 0,
+    "country": "world"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "node-api-server",
+  "version": "1.0.0",
+  "description": "simple node api server and it can be used for mocking any system you integrate with via HTTP request",
+  "author": "dahman",
+  "main": "server.js",
+  "devDependencies": {
+    "body-parser":"latest",
+    "express":"latest",
+    "glob": "~4.0.5",
+    "lodash": "^4.6.0"
+  }
+}
