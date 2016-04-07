@@ -1,37 +1,21 @@
 'use strict';
 
-
-var getJsonFiles= function(file,req,callback) {
-    var path = require("path"),
-        fs = require("fs");
-
-    var filePath = path.join(__dirname, '../data/', file);
-    var encoding = 'utf8';
-    if (req.app.locals.dataJson && req.app.locals.dataJson[file]) {
-        //using file from memory
-        callback();
-    } else {
-        fs.readFile(filePath, encoding, function (err, data) {
-            if (!err) {
-                var jsonParsed = JSON.parse(data);
-                //put file in memory
-                if (!req.app.locals.dataJson) {
-                    req.app.locals.dataJson = [];
-                }
-                req.app.locals.dataJson[file] = jsonParsed;
-                callback();
-            } else {
-                callback(err);
-            }
-        });
-    }
-};
+/**
+* function default
+* @return get a basic json response
+*/
 exports.default = function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });
 };
 
+/**
+* get user profile data from json file
+* @param {object} req
+* @param {object} res
+* @return {object} json data
+*/
 exports.getUserProfile = function(req, res) {
-    getJsonFiles('user.json',req,function(err){
+    req.app.locals.getJsonFiles('user.json',function(err){
         if(err){
             res.json({ error: err });
         }else{
@@ -40,12 +24,37 @@ exports.getUserProfile = function(req, res) {
     });
 
 };
+
+/**
+* get dataGrid data from json file
+* @param {object} req
+* @param {object} res
+* @return {object} json data
+*/
 exports.getDataGrid = function(req, res) {
-    getJsonFiles('datagrid.json',req,function(err){
+    req.app.locals.getJsonFiles('datagrid.json',function(err){
         if(err){
             res.json({ error: err });
         }else{
             res.json(req.app.locals.dataJson['datagrid.json']);
         }
     });
+};
+
+/**
+* get dataGrid random data from json schema
+* @param {object} req
+* @param {object} res
+* @return {object} json data
+*/
+exports.getRandomDataGrid = function(req, res) {
+    var config = {
+            currentPage : req.body.config && req.body.config.pagination ? req.body.config.pagination : req.app.locals.getRandomIntInclusive(1,15),
+            nbTotal : req.body.config && req.body.config.nbTotal ? req.body.config.nbTotal : req.app.locals.getRandomIntInclusive(50,150) ,
+            nbPerPage : req.body.config && req.body.config.nbPerPage ? req.body.config.nbPerPage :req.app.locals.getRandomIntInclusive(8,10)
+        };
+
+        req.app.locals.getFakeJson('datagrid.js',config,function(data){
+            res.json(data);
+        });
 };
