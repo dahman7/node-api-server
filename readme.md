@@ -1,12 +1,20 @@
+## Install
 
-node-api-server
-v 1.0.0
+Install node-api-server with npm :
 
-simple node api server and it can be used for mocking any system you integrate with via HTTP request
+$ npm install 
 
-npm install
+## Overview
 
-node server.js
+node-api-server is a easly configurated server to provide fake data using REST call .
 
-try 
-http://localhost:3000/api/
+Following libraries come bundled with node-api-server :
+
+   * [JSON-Schema-faker] (https://github.com/json-schema-fake) 
+   * [faker.js](https://github.com/Marak/faker.js)
+   * [chance.js](https://github.com/victorquinn/chancejs)
+   * [randexp](https://github.com/fent/randexp.js)
+   
+Using a json schema specification that defines what is the allowed content of a JSON document
+   * [JSON-schema specification](http://json-schema.org/).
+   
